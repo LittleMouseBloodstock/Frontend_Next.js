@@ -1,0 +1,8 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/customers/create/page": "app/customers/create/page.js",
+  "/customers/page": "app/customers/page.js",
+  "/customers/update/[id]/confirm/page": "app/customers/update/[id]/confirm/page.js",
+  "/customers/update/[id]/page": "app/customers/update/[id]/page.js"
+}
