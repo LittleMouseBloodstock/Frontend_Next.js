@@ -1,11 +1,28 @@
-// ✅ クライアントコンポーネントから searchParams を扱うようにするため分離
-// ファイル構成: 
-//   - app/customers/create/confirm/page.jsx （サーバーコンポーネント）
-//   - components/ConfirmClient.jsx （クライアントコンポーネント）
+import OneCustomerInfoCard from "@/app/components/one_customer_info_card.jsx";
 
-// ---------- app/customers/create/confirm/page.jsx ----------
-import ConfirmClient from "@/app/components/ConfirmClient";
+async function fetchCustomer(id) {
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_API_ENDPOINT + `/customers?customer_id=${id}`
+  );
+  if (!res.ok) {
+    throw new Error("Failed to fetch customer");
+  }
+  return res.json();
+}
 
-export default function ReadPage() {
-  return <ConfirmClient />;
+export default async function ReadPage({ query }) {
+  const { id } = query;
+  const customerInfo = await fetchCustomer(id);
+
+  return (
+    <>
+      <div className="alert alert-success">更新しました</div>
+      <div className="card bordered bg-white border-blue-200 border-2 max-w-sm m-4">
+        <OneCustomerInfoCard {...customerInfo[0]} />
+      </div>
+      <button className="btn btn-outline btn-accent">
+        <a href="/customers">一覧に戻る</a>
+      </button>
+    </>
+  );
 }
